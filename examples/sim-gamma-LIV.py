@@ -8,6 +8,8 @@ This case is the standard (Lorentz invariant approach), using only CRPropa.
 """
 
 import sys
+livpropaDir = '/Users/rab/Library/CloudStorage/Dropbox/softwares/CRPropa/LIVpropa/build'
+sys.path.append(livpropaDir)
 
 from crpropa import *
 from livpropa import *
@@ -28,14 +30,13 @@ outputFile = 'simulations/sim1D-gamma-LIV1_p.txt'
 
 # define LIV parameters
 kinEl = MonochromaticLorentzViolatingKinematics1(10.) 
-KinPh = MonochromaticLorentzViolatingKinematics1(10.)
-
+kinPh = MonochromaticLorentzViolatingKinematics1(10.)
 
 # combine these kinematics in a map
 kinematics = KinematicsMap()
 kinematics.add(-11, kinEl)
 kinematics.add( 11, kinEl)
-kinematics.add( 22, KinPh)
+kinematics.add( 22, kinPh)
 
 
 # source distribution: uniform with power-law spectrum
