@@ -9,9 +9,6 @@ This case is the standard (Lorentz invariant approach), using only CRPropa.
 
 import sys
 
-livpropaDir = '/Users/rab/Library/CloudStorage/Dropbox/softwares/CRPropa/LIVpropa/build'
-sys.path.append(livpropaDir)
-
 from crpropa import *
 from livpropa import *
 
@@ -27,15 +24,12 @@ electrons = photons = True
 thinning = 1.
 cmb = CMB()
 ebl = IRB_Gilmore12()
-outputFile = 'simulations/sim1D-gamma-SR.txt' 
+outputFile = 'simulations/sim1D-gamma-LIV1_p.txt' 
 
 # define LIV parameters
-# in this case, n=1, χ_e=0.1, χ_γ=0.1
-kinEl = MonochromaticLorentzViolatingKinematics1(-10.) 
-KinPh = MonochromaticLorentzViolatingKinematics1(-10.)
+kinEl = MonochromaticLorentzViolatingKinematics1(10.) 
+KinPh = MonochromaticLorentzViolatingKinematics1(10.)
 
-kinEl = SpecialRelativisticKinematics()
-KinPh = SpecialRelativisticKinematics()
 
 # combine these kinematics in a map
 kinematics = KinematicsMap()

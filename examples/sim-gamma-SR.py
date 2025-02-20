@@ -6,26 +6,29 @@ This case is the standard (Lorentz invariant approach), using only CRPropa.
 
 (This simulations may take a couple of minutes.)
 """
-
+import sys
 from crpropa import *
+
 
 # general options
 nEvents = 10000
-energyMinimum = 1 * GeV
-energyMaximum = 400 * TeV
-redshift = 0.14
+minE = 1 * GeV
+maxE = 1 * PeV
+redshift = 0.05
 distance = redshift2ComovingDistance(redshift)
 electrons = photons = True
 thinning = 1.
 cmb = CMB()
 ebl = IRB_Gilmore12()
-outputFile = 'simulations/sim1D-gamma-SR.txt'
+outputFile = 'simulations/sim1D-gamma-SR.txt' 
+
+
 
 # source distribution: uniform with power-law spectrum
 position = SourcePosition(Vector3d(distance, 0, 0))
 direction = SourceDirection(Vector3d(-1, 0, 0)) # emit in the -x direction (1D simulation)
 redshifts = SourceRedshift1D() # takes the positions and assign the corresponding redshifts
-energySpectrum = SourcePowerLawSpectrum(energyMinimum, energyMaximum, -1)
+energySpectrum = SourcePowerLawSpectrum(minE, maxE, -1)
 particleType = SourceParticleType(22) # we are interested in gamma rays
 source = Source()
 source.add(position)
@@ -49,6 +52,7 @@ observer.add(observerType)
 observer.onDetection(output)
 
 # interactions
+# note that in CRPropa these are called EM*, whereas in LIVpropa they don't take the EM prefix
 ppCMB = EMPairProduction(cmb, electrons, thinning)
 ppEBL = EMPairProduction(ebl, electrons, thinning)
 icsCMB = EMInverseComptonScattering(cmb, photons, thinning)
